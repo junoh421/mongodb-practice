@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise; // ES6 promises
+mongoose.Promise = global.Promise;
 
 before((done) => {
   mongoose.connect('mongodb://localhost/users_test', { useMongoClient: true });

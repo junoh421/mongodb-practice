@@ -5,9 +5,13 @@ describe('Reading users', () => {
   let joe;
 
   beforeEach((done) => {
+    alex = new User({ name: "Alex"});
     joe = new User({ name: "Joe" });
-    joe.save()
-      .then(() => done());
+    jen = new User({ name: "Jen"});
+    maria = new User({ name: "Maria"})
+
+    Promise.all([ alex.save(), joe.save(), jen.save(), maria.save()])
+    .then( () => done());
   });
 
   it('find all users with name joe', (done) => {
@@ -22,5 +26,14 @@ describe('Reading users', () => {
       assert(user.name === 'Joe')
       done();
     });
+  })
+
+  it('skip and limit result set', (done) => {
+    User.find({}).sort({ name: 1 }).skip(1).limit(2).then((users) => {
+      assert( users.length === 2 );
+      assert( users[0].name === 'Jen');
+      assert( users[1].name === 'Joe');
+      done();
+    })
   })
 });

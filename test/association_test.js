@@ -27,7 +27,7 @@ describe('Associations', () => {
     })
   });
 
-  it.only('saves full relation', (done) => {
+  it('saves full relation', (done) => {
     User.findOne({ name: "Joe" })
       .populate({
         path: 'blogPosts',
@@ -44,7 +44,7 @@ describe('Associations', () => {
         assert(user.blogPosts[0]._id.toString() === blogPost._id.toString())
         assert(user.blogPosts[0].comments[0]._id.toString() === comment._id.toString())
         assert(user.blogPosts[0].comments[0].user.name === joe.name)
-        
+
         done();
       })
   })

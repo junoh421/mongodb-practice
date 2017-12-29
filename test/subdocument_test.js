@@ -17,7 +17,7 @@ describe('Subdocuments', () => {
     });
   });
 
-  it('remove subdoc', (done) => {
+  xit('remove subdoc', (done) => {
     const joe = new User({
       name: "Joe",
       posts: [{ title: "Post Title"}]
@@ -37,7 +37,7 @@ describe('Subdocuments', () => {
     })
   });
 
-  it('can add subdoc to an existing record', (done) => {
+  xit('can add subdoc to an existing record', (done) => {
     joe = new User({
       name: 'Joe',
       posts: []

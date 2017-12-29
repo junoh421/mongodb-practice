@@ -4,14 +4,21 @@ mongoose.Promise = global.Promise;
 before((done) => {
   mongoose.connect('mongodb://localhost/users_test', { useMongoClient: true });
   mongoose.connection
-  .once('open', () => { done(); })
+  .once('open', () => {
+    done();
+   })
   .on('error', (error) => {
     console.log("Connecting...", error)
   });
 });
 
 beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => {
-    done();
-  });
+  const { users, comments, blogposts } = mongoose.connection.collections
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        done();
+      })
+    })
+  })
 });
